@@ -1,0 +1,9 @@
+removed all fields except:
+-res_id
+-res_course_num
+-res_bof_num
+-res_time
+
+removed any entry that didn't have all 4 of these fields filled in
+
+some weird things remain like very long times, very short times and negative bof numbers
