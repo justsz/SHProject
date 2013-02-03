@@ -1,5 +1,6 @@
 #!/usr/bin/python
 import random
+import numpy
 
 N = 1000 #total number of people competing
 n = 100 #max number of participants in a single race
@@ -14,7 +15,8 @@ rand2.jumpahead(999)
 
 #initialize scores
 for i in range(1, N+1):
-    rank = rand1.randint(1000, 1000)
+    #rank = rand1.randint(1000, 1000)
+    rank = rand1.gauss(1000, 200)
     people[i] = [rank, 0] #ID, initial rank, number of races participated in
     initialRanks.append(rank)
     
@@ -62,8 +64,9 @@ for i in range(1, races):
     SP = (divMP / top90)**(0.5)
     ST = (divMT / top90)**(0.5)
 
+    #needed if all start from the same score
     if SP == 0:
-        SP = 100
+        SP = 200
 
     #calculate scores and update mean scores of runners
     for res in results:
@@ -75,31 +78,36 @@ for i in range(1, races):
 
         currRaceCount = people[ID][1]
         people[ID][0] = (currRaceCount * people[ID][0] + RP) / (currRaceCount + 1)
+
     
-    
+
+#rebase scores to mean=1000, std=200
+allScoresStd = numpy.std([v[0] for k,v in people.iteritems()])
+for k,v in people.iteritems():
+    v[0] = v[0] * (200.0/allScoresStd)
+
+allScoresMean = numpy.mean([v[0] for k,v in people.iteritems()])
+for k,v in people.iteritems():
+    v[0] = v[0] + (1000.0 - allScoresMean)
+
+
 print "finished calculations. Final scores:"
     
-mean = 0
-finalRanks = []
-for j in range(1, N+1):
-    mean = mean + people[j][0]
-    finalRanks.append(people[j][0])
-
-mean = mean / N
-
-subSum = 0
-for j in range(1, N+1):
-    subSum = subSum + (people[j][0] - mean)**2
-
-sdDiv = (subSum / N)**(0.5)
+mean = numpy.mean([v[0] for k,v in people.iteritems()])
+finalRanks = [v[0] for k,v in people.iteritems()]
+sdDiv = numpy.std([v[0] for k,v in people.iteritems()])
 
 print "races", races
+print "initMean", numpy.mean(initialRanks)
+print "initSTD", numpy.std(initialRanks)
 print "mean", mean
 print "sdDiv", sdDiv
 
+
+#plot graphs
 import matplotlib.pyplot as plt
-#plt.hist(initialRanks, bins=50, normed=False, histtype='stepfilled', color='b', label='initial', alpha = 0.5)
-plt.hist(finalRanks, bins=50, normed=False, histtype='stepfilled', color='r', label='final')                        
+plt.hist(initialRanks, bins=50, normed=False, histtype='stepfilled', color='b', label='initial')
+plt.hist(finalRanks, bins=50, normed=False, histtype='stepfilled', color='r', label='final', alpha = 0.5)                        
 plt.title("Rank Histogram")
 plt.xlabel("Rank")
 plt.ylabel("Frequency")
