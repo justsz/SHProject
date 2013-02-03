@@ -1,70 +1,108 @@
 #!/usr/bin/python
 import random
 
-N = 1000
-n = 100
-races = 100000
+N = 1000 #total number of people competing
+n = 100 #max number of participants in a single race
+races = 10000
 
-people = []
+people = {}
+initialRanks = []
 rand1 = random.Random(456)
 rand2 = random.Random(456)
 
 rand2.jumpahead(999)
 
 #initialize scores
-for i in range(0, N):
-    people.append([i, rand1.randint(500, 1500)])
+for i in range(1, N+1):
+    rank = rand1.randint(1000, 1000)
+    people[i] = [rank, 0] #ID, initial rank, number of races participated in
+    initialRanks.append(rank)
+    
 
 print "beginning calculations"
 for i in range(1, races):
-    if i % 100 == 0:
-        print i
+    if i % 1000 == 0:
+        print "race", i
+
+    #choose participants for
     noOfParticipants = rand1.randint(10, n)
-    participants = random.sample(xrange(1, N), noOfParticipants)
+    participants = rand1.sample(xrange(1, N+1), noOfParticipants)
+
+    #arbitrarily choose mean race time and standard deviation
     MT = rand1.uniform(600, 360000)
     ST = MT / 10
 
-    MP = 0
-    for j in range(0, noOfParticipants):
-        MP = MP + people[participants[j]][1]
-
-    MP = MP / noOfParticipants
-
-    subSum = 0
-    for j in range(0, noOfParticipants):
-        subSum = subSum + (people[participants[j]][1] - MP)**2
-
-##    SP = 100
-##    if i != 1:
-    SP = (subSum / noOfParticipants)**(0.5)
-
     #generate run times
-    for j in range(0, noOfParticipants):
-        RT = rand2.gauss(MT, ST)
-        RP = MP + SP * (MT - RT) / ST
+    results = []
+    for j in participants:
+        results.append([j, people[j][0], rand2.gauss(MT, ST)]) #save participant ID together with RT and score
+        people[j][1] = people[j][1] + 1
         
-        #print SP * (MT - RT) / ST
+    results = sorted(results, key=lambda x: x[2]) #rank by run times: quicke -> slow
+    
+
+    top90 = int(noOfParticipants*0.9)
+    #calculate mean rank and time and their standard deviations
+    MP = 0.0
+    MT = 0.0
+    for j in range(0, top90):
+        MP = MP + results[j][1]
+        MT = MT + results[j][2]
+
+    MP = MP / top90
+    MT = MT / top90
+
+    divMP = 0.0
+    divMT = 0.0
+    for j in range(0, top90):
+        divMP = divMP + (results[j][1] - MP)**2
+        divMT = divMT + (results[j][2] - MT)**2
+
+    
+    SP = (divMP / top90)**(0.5)
+    ST = (divMT / top90)**(0.5)
+
+    if SP == 0:
+        SP = 100
+
+    #calculate scores and update mean scores of runners
+    for res in results:
+        ID = res[0]
+        RP = MP + SP * (MT - res[2]) / ST
+        
         if RP < 0:
             RP = 0
-        people[participants[j]][1] = (i * people[participants[j]][1] + RP) / (i + 1)
+
+        currRaceCount = people[ID][1]
+        people[ID][0] = (currRaceCount * people[ID][0] + RP) / (currRaceCount + 1)
     
     
 print "finished calculations. Final scores:"
-##for i in range(0, N):
-##    print people[i][1]
     
 mean = 0
-for j in range(0, N):
-    mean = mean + people[j][1]
+finalRanks = []
+for j in range(1, N+1):
+    mean = mean + people[j][0]
+    finalRanks.append(people[j][0])
 
 mean = mean / N
 
 subSum = 0
-for j in range(0, N):
-    subSum = subSum + (people[j][1] - mean)**2
+for j in range(1, N+1):
+    subSum = subSum + (people[j][0] - mean)**2
 
 sdDiv = (subSum / N)**(0.5)
 
 print "races", races
 print "mean", mean
 print "sdDiv", sdDiv
+
+import matplotlib.pyplot as plt
+#plt.hist(initialRanks, bins=50, normed=False, histtype='stepfilled', color='b', label='initial', alpha = 0.5)
+plt.hist(finalRanks, bins=50, normed=False, histtype='stepfilled', color='r', label='final')                        
+plt.title("Rank Histogram")
+plt.xlabel("Rank")
+plt.ylabel("Frequency")
+plt.figtext(0.15, 0.85, str(round(mean, 3)) + '(' + str(round(sdDiv, 3)) + ')')
+plt.legend()
+plt.show()
