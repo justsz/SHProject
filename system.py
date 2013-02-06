@@ -6,19 +6,25 @@ N = 1000 #total number of people competing
 n = 100 #max number of participants in a single race
 races = 10000
 
+MT = 100000
+ST = MT / 10
+
 people = {}
 initialRanks = []
+abilities = []
 rand1 = random.Random(456)
-rand2 = random.Random(456)
 
+rand2 = random.Random(456)
 rand2.jumpahead(999)
 
 #initialize scores
 for i in range(1, N+1):
-    #rank = rand1.randint(1000, 1000)
+##    rank = rand1.randint(1000, 1000)
     rank = rand1.gauss(1000, 200)
-    people[i] = [rank, 0] #ID, initial rank, number of races participated in
+    ability = rand1.gauss(MT, ST)
+    people[i] = [rank, 0, ability] #ID, initial rank, number of races participated in
     initialRanks.append(rank)
+    abilities.append(ability)
     
 
 print "beginning calculations"
@@ -30,20 +36,17 @@ for i in range(1, races):
     noOfParticipants = rand1.randint(10, n)
     participants = rand1.sample(xrange(1, N+1), noOfParticipants)
 
-    #arbitrarily choose mean race time and standard deviation
-    MT = rand1.uniform(600, 360000)
-    ST = MT / 10
 
     #generate run times
     results = []
     for j in participants:
-        results.append([j, people[j][0], rand2.gauss(MT, ST)]) #save participant ID together with RT and score
+        results.append([j, people[j][0], rand1.gauss(people[j][2], 50000) ]) #save participant ID together with RT and score
         people[j][1] = people[j][1] + 1
         
     results = sorted(results, key=lambda x: x[2]) #rank by run times: quicke -> slow
     
 
-    top90 = int(noOfParticipants*0.9)
+    top90 = int(noOfParticipants*1.0)
     #calculate mean rank and time and their standard deviations
     MP = 0.0
     MT = 0.0
@@ -82,20 +85,17 @@ for i in range(1, races):
     
 
 #rebase scores to mean=1000, std=200
-allScoresStd = numpy.std([v[0] for k,v in people.iteritems()])
-for k,v in people.iteritems():
-    v[0] = v[0] * (200.0/allScoresStd)
-
-allScoresMean = numpy.mean([v[0] for k,v in people.iteritems()])
-for k,v in people.iteritems():
-    v[0] = v[0] + (1000.0 - allScoresMean)
+##allScoresStd = numpy.std([v[0] for k,v in people.iteritems()])
+##allScoresMean = numpy.mean([v[0] for k,v in people.iteritems()])
+##for k,v in people.iteritems():
+##    v[0] = (v[0] - allScoresMean) * 200 / allScoresStd + 1000
 
 
 print "finished calculations. Final scores:"
-    
-mean = numpy.mean([v[0] for k,v in people.iteritems()])
+
 finalRanks = [v[0] for k,v in people.iteritems()]
-sdDiv = numpy.std([v[0] for k,v in people.iteritems()])
+mean = numpy.mean(finalRanks)
+sdDiv = numpy.std(finalRanks)
 
 print "races", races
 print "initMean", numpy.mean(initialRanks)
@@ -103,14 +103,30 @@ print "initSTD", numpy.std(initialRanks)
 print "mean", mean
 print "sdDiv", sdDiv
 
+abM = numpy.mean(abilities)
+abSd = numpy.std(abilities)
+
+abilities = [((ab - abM) * sdDiv / abSd + mean) for ab in abilities]
+
 
 #plot graphs
 import matplotlib.pyplot as plt
-plt.hist(initialRanks, bins=50, normed=False, histtype='stepfilled', color='b', label='initial')
-plt.hist(finalRanks, bins=50, normed=False, histtype='stepfilled', color='r', label='final', alpha = 0.5)                        
-plt.title("Rank Histogram")
-plt.xlabel("Rank")
-plt.ylabel("Frequency")
-plt.figtext(0.15, 0.85, str(round(mean, 3)) + '(' + str(round(sdDiv, 3)) + ')')
-plt.legend()
+##plt.hist(abilities, bins=50, normed=False, histtype='stepfilled', color='b', label='abilities')
+##plt.hist(finalRanks, bins=50, normed=False, histtype='stepfilled', color='r', label='final', alpha = 0.5)                        
+##plt.title("Rank Histogram")
+##plt.xlabel("Rank")
+##plt.ylabel("Frequency")
+##plt.figtext(0.15, 0.85, str(round(mean, 3)) + '(' + str(round(sdDiv, 3)) + ')')
+##plt.legend()
+##plt.show()
+
+r = []
+ab = []
+sc = []
+for k,v in people.iteritems():
+    r.append(k)
+    ab.append(v[2])
+    sc.append(v[0])
+##plt.plot(ab, ab, 'r--', sc, 'bs')
+plt.plot(ab, sc, 'ro')
 plt.show()
