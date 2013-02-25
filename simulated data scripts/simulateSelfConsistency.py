@@ -21,15 +21,15 @@ numpy.random.seed(678900)
 
 #initialize scores
 for i in range(1, N+1):
-##    rank = rand1.randint(1000, 1000)
-    rank = rand1.gauss(1000, 200)
+    rank = rand1.randint(1000, 1000)
+##    rank = rand1.gauss(1000, 200)
     ability = rand1.gauss(MT, ST)
     people[i] = [rank, 0, ability] #ID, initial rank, number of races participated in
     initialRanks.append(rank)
     abilities.append(ability)
 
 noOfParticipants = N
-participants = range(1, 1001)
+participants = range(1, noOfParticipants+1)
 differences = []
 maxDifferences = []
 
@@ -39,8 +39,8 @@ results = []
 for j in participants:
     #save participant ID together with rank and RunTime
 ##        results.append([j, people[j][0], people[j][2]]) 
-##        results.append([j, people[j][0], people[j][2] + abs(rand1.gauss(0, people[j][2] * 0.1))]) 
-    results.append([j, people[j][0], people[j][2] + numpy.random.poisson(4) * MT / 10])
+        results.append([j, people[j][0], people[j][2] + abs(rand1.gauss(0, people[j][2] * 0.1))]) 
+##        results.append([j, people[j][0], people[j][2] + numpy.random.poisson(5) * MT / 100])
 
 results = sorted(results, key=lambda x: x[2]) #rank by run times: quicke -> slow
 
@@ -94,7 +94,8 @@ for i in range(1, races):
     
     if i<100 or i%100==0:
         print i, maxDif, numpy.mean(differences)
-    if maxDif < 0.0001:
+    if maxDif < 0.001:
+        print "races", i
         break
     
 
@@ -113,7 +114,7 @@ finalRanks = [v[0] for k,v in people.iteritems()]
 mean = numpy.mean(finalRanks)
 sdDiv = numpy.std(finalRanks)
 
-print "races", races
+
 print "initMean", numpy.mean(initialRanks)
 print "initSTD", numpy.std(initialRanks)
 print "final ranks mean", mean
@@ -139,5 +140,5 @@ abilities = [((ab - abM) * sdDiv / abSd + mean) for ab in abilities]
 ##plt.plot(ab, sc, 'ro')
 ##plt.show()
 
-plt.plot(maxDifferences, 'ro')
+plt.plot(maxDifferences[0:100], 'ro')
 plt.show()
