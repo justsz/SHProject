@@ -1,0 +1,106 @@
+%
+%                       This is a LaTeX 2e version of the
+%                       laboratory project template file.
+\documentclass[a4paper,12pt]{article}
+\usepackage{fullpage,epsf}
+
+
+%
+%                       This section generates a title page
+%                       Edit only the sections indicated to put
+%                       in the project title, your name, supervisor,
+%                       project length in weeks and submission date
+%
+\begin{document}
+\pagestyle{empty}                       % No numbers of title page                      
+\epsfxsize=40mm                         % Size of crest
+\begin{minipage}[b]{110mm}
+        {\Huge\bf School of Physics\\ and Astronomy
+        \vspace*{17mm}}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{40mm}               
+        \makebox[40mm]{
+        \epsffile{crest.eps}}
+\end{minipage}
+\par\noindent                                           % Centre Title, and name
+\vspace*{2cm}
+\begin{center}
+        \Large\bf \Large\bf Senior Honours Project\\
+        \Large\bf Physics 4\\[10pt]                     % Change to MP/CP/Astro
+        \LARGE\bf Template for Writing a Report         % Change to suit
+\end{center}
+\vspace*{0.5cm}
+\begin{center}
+        \bf William Hossack\\                           % Repace with your name
+        October 2000                                    % Submission Date
+\end{center}
+\vspace*{5mm}
+%
+%                       Insert your abstract HERE
+%                       
+\begin{abstract}
+        \input{./text/abstract.tex}
+\end{abstract}
+
+\vspace*{1cm}
+
+\subsubsection*{Declaration}
+
+\begin{quotation}
+        I declare that this project and report is my own work.
+\end{quotation}
+
+\vspace*{2cm}
+Signature:\hspace*{8cm}Date:
+
+\vfill
+{\bf Supervisor:} Dr. A.N. Other                % Change to suit
+\hfill
+6 Weeks                                         % Change to suit
+\newpage
+%
+%                       End of Title Page
+\pagestyle{plain}                               % Page numbers at bottom
+\setcounter{page}{1}                            % Set page number to 1
+\tableofcontents                                % Makes Table of Contents
+\input{./text/intro.tex} 
+\input{./text/backgroundAndTheory.tex}
+\input{./text/method.tex}
+\input{./text/results.tex}
+\input{./text/conclusions.tex}
+
+ 
+
+\section{References}
+
+Don't forget this section. Detail the relevant references which
+should be cited at the correct place in the text of the report. There
+are no fixed rules as to how many references are {\it needed}. Generally
+the longer the project, and the more background reading you had to do,
+the more references will be required. 
+
+When you cite a reference you must give sufficient information. For
+example, for a journal article give, {\it Author}, {\it Title of
+article},
+{\it Journal Name}, {\it Volumn}, {\it Page}, and {\it Year}, 
+while for a book give, {\it Author}, {\it Title},
+{\it (Editor if there is one)}, {\it Publisher}, and {\it Year}.        
+\appendix
+\section{Appendices}
+
+Material that is useful background to the report, but is not essential,
+or whose inclusion within the report  would detract from its
+structure and readablity, should be included in appendices. Typical
+material could be diagrams of electronic circuits built, specialist
+data tables used to analyse results, details of computer programs
+written for analysis and display of results, photographic plates,
+and, for computational projects, a copy of all written code.
+
+Again be selective. The appendix is {\bf not} an excuse for you to add every
+last detail and piece of data, but should be used to assist the reader
+of the report by supplying additional material. Not all reports require
+appendices and if the report is complete without this additional
+material leave it out.
+
+\end{document}

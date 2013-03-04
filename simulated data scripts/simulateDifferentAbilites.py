@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 N = 10000
 n = 100 #max number of participants in a single race
 ##races = 5861
-races = 50000
+races = 10000
 
 MT = 1000
 ST = MT / 10

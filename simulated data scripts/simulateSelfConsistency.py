@@ -23,7 +23,8 @@ numpy.random.seed(678900)
 for i in range(1, N+1):
     rank = rand1.randint(1000, 1000)
 ##    rank = rand1.gauss(1000, 200)
-    ability = rand1.gauss(MT, ST)
+##    ability = rand1.gauss(MT, ST)
+    ability = rand1.randint(0, 100000)
     people[i] = [rank, 0, ability] #ID, initial rank, number of races participated in
     initialRanks.append(rank)
     abilities.append(ability)
@@ -38,8 +39,8 @@ maxDifferences = []
 results = []
 for j in participants:
     #save participant ID together with rank and RunTime
-##        results.append([j, people[j][0], people[j][2]]) 
-        results.append([j, people[j][0], people[j][2] + abs(rand1.gauss(0, people[j][2] * 0.1))]) 
+        results.append([j, people[j][0], people[j][2]]) 
+##        results.append([j, people[j][0], people[j][2] + abs(rand1.gauss(0, people[j][2] * 0.1))]) 
 ##        results.append([j, people[j][0], people[j][2] + numpy.random.poisson(5) * MT / 100])
 
 results = sorted(results, key=lambda x: x[2]) #rank by run times: quicke -> slow
