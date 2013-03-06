@@ -3,10 +3,8 @@ import random
 import numpy
 import matplotlib.pyplot as plt
 
-##N = 10415 #total number of people competing
 N = 10000
 n = 100 #max number of participants in a single race
-##races = 5861
 races = 10000
 
 MT = 1000

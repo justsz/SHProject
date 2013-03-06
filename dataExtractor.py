@@ -19,8 +19,6 @@ filename = "reducedData.csv"
 pattern = '(\d+),(.*),(\d+),(\d+):(\d\d):(\d\d)'
 counter = 0
 
-target = 0
-take = True
 
 print 'beginning to read file'
 for line in fileinput.input([filename]):
@@ -65,7 +63,7 @@ for repeat in range(0, 1):
                         if (r[1] > 0): #ignore RT that are zero
                                 person = people[r[0]]
                                 results.append([r[0], person[0], r[1]]) #id, prevScore, RT
-                                person[1] += 1
+                                
 
                 if len(results) > 10:
                         raceCounter += 1
@@ -97,14 +95,8 @@ for repeat in range(0, 1):
 
                         #calculate scores and update mean scores of runners
                         for res in results:
-                                
-
-                                
                                 ID = res[0]
-                                if take:
-                                        target = ID
-                                        take = False
-                                        print people[target][0]
+
                                 RP = MP + SP * (MT - res[2]) / ST
                         
                                 if RP < 0:
@@ -112,13 +104,13 @@ for repeat in range(0, 1):
 
                                 currRaceCount = people[ID][1]
 
-                                if (currRaceCount == 1): #CHECK for correctness
+                                if (currRaceCount == 0): #CHECK for correctness
                                         people[ID][0] = RP
-                                        people[ID][1] += -1
                                 else:
+                                        currRaceCount += 1
                                         people[ID][0] = (currRaceCount * people[ID][0] + RP) / (currRaceCount + 1)
-                                if ID == target:
-                                        print people[ID][0]
+                                people[ID][1] += 1
+
                                 
 
 
