@@ -24,6 +24,8 @@ counter = 0
 means = []
 divs = []
 
+stdCutoff = 2
+
 
 
 print 'beginning to read file'
@@ -78,7 +80,7 @@ print "number of people registered: ", len(people)
 raceCounter = 0
 
 print "processing race results..."
-for repeat in range(1, 2):
+for repeat in range(1, 20):
         print repeat
         for race,times in races.iteritems():
                 results = []
@@ -91,33 +93,68 @@ for repeat in range(1, 2):
                         raceCounter += 1
                         if (raceCounter % 1000 == 0):
                                 print raceCounter
+
+                        initMean = numpy.mean([x[2] for x in results])
+                        initStd = numpy.std([x[2] for x in results])
+
+
+                #recalculate mean based only on reasonable scores
+
                         
-                        results = sorted(results, key=lambda x: x[2]) #rank by run times: quick -> slow
+##                        MP = 0.0
+##                        MT = 0.0
+##                        total = 0
+##                        for j in results:
+##                                if abs(j[2] - initMean) < stdCutoff*initStd:
+##                                        MP = MP + j[1]
+##                                        MT = MT + j[2]
+##                                        total += 1
+##                                #else:
+##                                        #print "racer and time", j[0], j[2]
+##
+##                        MP = MP / total
+##                        MT = MT / total
+##
+##                        divMP = 0.0
+##                        divMT = 0.0
+##
+##                        for j in results:
+##                                if abs(j[2] - initMean) < stdCutoff*initStd:
+##                                        divMP = divMP + (j[1] - MP)**2
+##                                        divMT = divMT + (j[2] - MT)**2
+##
+##                        SP = (divMP / total)**(0.5)
+##                        ST = (divMT / total)**(0.5)
 
-                        top = int(len(results)*1.0)
-                        bottom = len(results) - top
-                        #bottom10 = 0
-                        total = top - bottom
 
-                        #print "all, top, bottom, total", len(results), top, bottom, total
-                        #calculate mean rank and time and their standard deviations
+                #throw out unreasonable results completely
+
+                        results = [r for r in results if abs(r[2] - initMean) < stdCutoff*initStd]
                         MP = 0.0
                         MT = 0.0
-                        for j in range(bottom, top):
-                                MP = MP + results[j][1]
-                                MT = MT + results[j][2]
+                        total = 0
+                        for j in results:
+                                MP = MP + j[1]
+                                MT = MT + j[2]
+                                total += 1
+                                #else:
+                                        #print "racer and time", j[0], j[2]
 
                         MP = MP / total
                         MT = MT / total
 
                         divMP = 0.0
                         divMT = 0.0
-                        for j in range(bottom, top):
-                                divMP = divMP + (results[j][1] - MP)**2
-                                divMT = divMT + (results[j][2] - MT)**2
+
+                        for j in results:
+                                divMP = divMP + (j[1] - MP)**2
+                                divMT = divMT + (j[2] - MT)**2
 
                         SP = (divMP / total)**(0.5)
                         ST = (divMT / total)**(0.5)
+                        
+                        
+                                        
 
                         #needed if all start from the same score (not so nice)
                         if SP == 0:

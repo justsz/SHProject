@@ -3,13 +3,13 @@ import random
 import numpy
 import matplotlib.pyplot as plt
 
-N = 10000
+N = 1000
 n = 100 #max number of participants in a single race
 races = 10000
 
 MT = 1000
 ST = MT / 10
-mistakeWeight = 0#MT / 100
+mistakeWeight = MT / 100
 
 for repeat in range (1, 2):
 ##    races += 0
@@ -31,7 +31,7 @@ for repeat in range (1, 2):
         ###Higher "ability" actually means slower runner
         ability = rand1.gauss(MT, ST)
 ##        mistakes = rand1.randint(1,10)
-        mistakes = 1
+        mistakes = 5
 ##        mistakes = int((MT - ability) / ST)
 ##        if mistakes < 0:
 ##            mistakes = 0
