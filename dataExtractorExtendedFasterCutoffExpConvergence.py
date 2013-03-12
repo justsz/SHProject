@@ -23,6 +23,10 @@ counter = 0
 
 means = []
 divs = []
+maxDifferences = []
+differences = []
+
+stdCutoff = 2
 
 
 
@@ -78,7 +82,7 @@ print "number of people registered: ", len(people)
 raceCounter = 0
 
 print "processing race results..."
-for repeat in range(1, 10):
+for repeat in range(1, 20):
         print repeat
         for race,times in races.iteritems():
                 results = []
@@ -91,42 +95,74 @@ for repeat in range(1, 10):
                         raceCounter += 1
                         if (raceCounter % 1000 == 0):
                                 print raceCounter
+
+                        initMean = numpy.mean([x[2] for x in results])
+                        initStd = numpy.std([x[2] for x in results])
+
+
+                #recalculate mean based only on reasonable scores
+
                         
-                        #results = sorted(results, key=lambda x: x[2]) #rank by run times: quick -> slow
+##                        MP = 0.0
+##                        MT = 0.0
+##                        total = 0
+##                        for j in results:
+##                                if abs(j[2] - initMean) < stdCutoff*initStd:
+##                                        MP = MP + j[1]
+##                                        MT = MT + j[2]
+##                                        total += 1
+##                                #else:
+##                                        #print "racer and time", j[0], j[2]
+##
+##                        MP = MP / total
+##                        MT = MT / total
+##
+##                        divMP = 0.0
+##                        divMT = 0.0
+##
+##                        for j in results:
+##                                if abs(j[2] - initMean) < stdCutoff*initStd:
+##                                        divMP = divMP + (j[1] - MP)**2
+##                                        divMT = divMT + (j[2] - MT)**2
+##
+##                        SP = (divMP / total)**(0.5)
+##                        ST = (divMT / total)**(0.5)
 
-                        top = int(len(results)*1.0)
-                        bottom = len(results) - top
-                        #bottom10 = 0
-                        total = top - bottom
 
-                        #results = results[bottom:top]
+                #throw out unreasonable results completely
 
-                        #print "all, top, bottom, total", len(results), top, bottom, total
-                        #calculate mean rank and time and their standard deviations
+                        results = [r for r in results if abs(r[2] - initMean) < stdCutoff*initStd]
                         MP = 0.0
                         MT = 0.0
-                        for j in range(bottom, top):
-                        #for res in results:
-                                MP = MP + results[j][1]
-                                MT = MT + results[j][2]
+                        total = 0
+                        for j in results:
+                                MP = MP + j[1]
+                                MT = MT + j[2]
+                                total += 1
+                                #else:
+                                        #print "racer and time", j[0], j[2]
 
                         MP = MP / total
                         MT = MT / total
 
                         divMP = 0.0
                         divMT = 0.0
-                        for j in range(bottom, top):
-                        #for res in results:
-                                divMP = divMP + (results[j][1] - MP)**2
-                                divMT = divMT + (results[j][2] - MT)**2
+
+                        for j in results:
+                                divMP = divMP + (j[1] - MP)**2
+                                divMT = divMT + (j[2] - MT)**2
 
                         SP = (divMP / total)**(0.5)
                         ST = (divMT / total)**(0.5)
+                        
+                        
+                                        
 
                         #needed if all start from the same score (not so nice)
                         if SP == 0:
                                 SP = 200
 
+                        differences[:] = []
                         #calculate scores and update mean scores of runners
                         for res in results:
                                 ID = res[0]
@@ -139,10 +175,19 @@ for repeat in range(1, 10):
 
                                 #the first "real" score overrides the generated one
                                 if (currRaceCount == 0): #CHECK for correctness
-                                        people[ID][0] = RP
+                                        newScore = RP
                                 else:
-                                        people[ID][0] = (currRaceCount * people[ID][0] + RP) / (currRaceCount + 1)
+                                        newScore = (currRaceCount * people[ID][0] + RP) / (currRaceCount + 1)
+
+                                differences.append(abs(newScore - people[ID][0]))
+                                people[ID][0] = newScore
                                 people[ID][1] += 1
+
+                        maxDif = max(differences)
+                        maxDifferences.append(maxDif)
+                        
+                        if maxDif < 0.001:
+                                break
                                 
                                 
         means.append(numpy.mean([v[0] for k,v in people.iteritems() if v[1] > 0]))

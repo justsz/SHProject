@@ -26,12 +26,12 @@ for repeat in range (1, 2):
 
     #initialize scores
     for i in range(1, N+1):
-        rank = rand1.randint(1000, 1000)
-##        rank = rand1.gauss(1000, 200)
+##        rank = rand1.randint(1000, 1000)
+        rank = rand1.gauss(1000, 200)
         ###Higher "ability" actually means slower runner
         ability = rand1.gauss(MT, ST)
 ##        mistakes = rand1.randint(1,10)
-        mistakes = 5
+        mistakes = 1
 ##        mistakes = int((MT - ability) / ST)
 ##        if mistakes < 0:
 ##            mistakes = 0
@@ -64,10 +64,11 @@ for repeat in range (1, 2):
             #increment race participation counter
             people[j][1] = people[j][1] + 1
             
-        results = sorted(results, key=lambda x: x[2]) #rank by run times: quicke -> slow
+        results = sorted(results, key=lambda x: x[2]) #sort by run times: quicke -> slow
         
 
-        top90 = int(noOfParticipants*0.9)
+        top90 = int(noOfParticipants*1.0)
+        #results = results[0: top90]
         #calculate mean rank and time and their standard deviations
         MP = 0.0
         MT = 0.0
@@ -135,33 +136,33 @@ for repeat in range (1, 2):
 
     #plot rank distribution
 
-##    plt.hist(abilities, bins=100, normed=False, histtype='stepfilled', color='b', label='abilities')
-##    plt.hist(finalRanks, bins=100, normed=False, histtype='stepfilled', color='r', label='finalRanks', alpha = 0.5)
-##    plt.axvline(x=mean, color='black')
-##    plt.title("Rank Histogram")
-##    plt.xlabel("Rank")
-##    plt.ylabel("Frequency")
-##    plt.figtext(0.15, 0.85, str(round(mean, 3)) + '(' + str(round(sdDiv, 3)) + ')')
-##    plt.legend()
-##    plt.show()
+    #plt.hist(abilities, bins=100, normed=False, histtype='stepfilled', color='b', label='abilities')
+    plt.hist(finalRanks, bins=50, normed=False, histtype='stepfilled', color='r', label='finalRanks', alpha = 0.5)
+    plt.axvline(x=mean, color='black')
+    plt.title("Rank Histogram")
+    plt.xlabel("Rank")
+    plt.ylabel("Frequency")
+    plt.figtext(0.15, 0.85, str(round(mean, 3)) + '(' + str(round(sdDiv, 3)) + ')')
+    plt.legend()
+    plt.show()
 
 
     #plot score vs ability
 
-    r = []
-    ab = []
-    sc = []
-    sc_over_ab = []
-    for k,v in people.iteritems():
-        r.append(k)
-        ab.append(v[2])
-        sc.append(v[0])
-        sc_over_ab.append(v[0] / v[2])
-    ##plt.plot(ab, ab, 'r--', sc, 'bs')
-    plt.plot(ab, sc, 'ro')
-##    plt.plot(sc_over_ab, 'ro')
-##    plt.savefig(str(races)+'races.png', dpi=100)
-    plt.show()
-    plt.close()
+##    r = []
+##    ab = []
+##    sc = []
+##    sc_over_ab = []
+##    for k,v in people.iteritems():
+##        r.append(k)
+##        ab.append(v[2])
+##        sc.append(v[0])
+##        sc_over_ab.append(v[0] / v[2])
+##    ##plt.plot(ab, ab, 'r--', sc, 'bs')
+##    plt.plot(ab, sc, 'ro')
+####    plt.plot(sc_over_ab, 'ro')
+####    plt.savefig(str(races)+'races.png', dpi=100)
+##    plt.show()
+##    plt.close()
 
 

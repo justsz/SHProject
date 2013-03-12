@@ -146,7 +146,7 @@ print "number of races with more than 10 runners: ", raceCounter
 mean = numpy.mean([v[0] for k,v in people.iteritems() if len(v[1]) > 0])
 sdDiv = numpy.std([v[0] for k,v in people.iteritems() if len(v[1]) > 0])
 
-plt.hist(finalRanks, bins=100, normed=True, histtype='stepfilled', color='r', label='final', alpha = 0.5)
+plt.hist(finalRanks, bins=100, normed=False, histtype='stepfilled', color='r', label='final', alpha = 0.5)
 plt.axvline(x=mean, color='black')
 plt.title("Rank Histogram")
 plt.xlabel("Rank")
