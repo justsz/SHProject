@@ -68,14 +68,14 @@ for p in participantsSet:
         if not p in people: #duplicates won't be added, this is just for paranoia of mis-sampling the gaussian
 ##        rank = 1000
                 rank = rand.gauss(1000, 200)
-                people[p] = [rank, []]
+                people[p] = [rank, [], 0]
 
 print "number of people registered: ", len(people)
 
 raceCounter = 0
 
 print "processing race results..."
-for repeat in range(1, 2):
+for repeat in range(1, 5):
         print repeat
         for race,times in races.iteritems():
                 results = []
@@ -132,6 +132,15 @@ for repeat in range(1, 2):
                                 #the first "real" score overrides the generated one
                                 people[ID][1].append(RP)
                                 people[ID][0] = numpy.mean(people[ID][1])
+                                if repeat == 1:
+                                        people[ID][2] += 1
+
+        if repeat == 2:
+                for k,v in people.iteritems():
+                        r = v[1]
+                        newRaces = r[v[2]:len(r)]
+                        people[k][1] = newRaces
+                        people[k][0] = numpy.mean(newRaces)
                                 
         print "mean of individual Stds", numpy.mean([numpy.std(v[1]) for k,v in people.iteritems() if len(v[1]) > 0])
         print "mean", numpy.mean([v[0] for k,v in people.iteritems() if len(v[1]) > 0])

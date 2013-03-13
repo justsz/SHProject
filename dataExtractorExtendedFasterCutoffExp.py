@@ -24,7 +24,7 @@ counter = 0
 means = []
 divs = []
 
-stdCutoff = 2
+stdCutoff = 100
 
 
 
@@ -80,7 +80,7 @@ print "number of people registered: ", len(people)
 raceCounter = 0
 
 print "processing race results..."
-for repeat in range(1, 20):
+for repeat in range(1, 2):
         print repeat
         for race,times in races.iteritems():
                 results = []

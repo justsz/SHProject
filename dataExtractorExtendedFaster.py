@@ -78,7 +78,7 @@ print "number of people registered: ", len(people)
 raceCounter = 0
 
 print "processing race results..."
-for repeat in range(1, 10):
+for repeat in range(1, 11):
         print repeat
         for race,times in races.iteritems():
                 results = []
@@ -145,8 +145,8 @@ for repeat in range(1, 10):
                                 people[ID][1] += 1
                                 
                                 
-        means.append(numpy.mean([v[0] for k,v in people.iteritems() if v[1] > 0]))
-        divs.append(numpy.std([v[0] for k,v in people.iteritems() if v[1] > 0]))
+        means.append(numpy.mean([v[0] for k,v in people.iteritems() if v[1] >= 6*repeat]))
+        divs.append(numpy.std([v[0] for k,v in people.iteritems() if v[1] >= 6*repeat]))
 
 
 

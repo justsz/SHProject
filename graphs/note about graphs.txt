@@ -1,0 +1,3 @@
+The plotting package (pyplot) will often plot the graph with a large whitespace after data ends. 
+It looks like it sets up delimiters on the axis and plots until the last delimiter beyond which there are no data.
+For example, if the delimiters are 5000 apart and data ends at 10001, the plot will draw up to 15000 leaving 4999 worth of blank space.
