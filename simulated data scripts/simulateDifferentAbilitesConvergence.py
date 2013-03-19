@@ -3,7 +3,7 @@ import random
 import numpy
 import matplotlib.pyplot as plt
 
-N = 1000
+N = 10000
 n = 100 #max number of participants in a single race
 races = 5000
 

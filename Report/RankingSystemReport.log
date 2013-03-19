@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=latex 2013.3.4)  12 MAR 2013 15:39
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=latex 2013.3.4)  19 MAR 2013 20:29
 entering extended mode
 **RankingSystemReport.tex
 (E:\SHProject\SHProject\Report\RankingSystemReport.tex
@@ -63,35 +63,39 @@ LaTeX Font Info:    ... okay on input line 14.
 (E:\SHProject\SHProject\Report\text\abstract.tex) [1
 
 ]
-(E:\SHProject\SHProject\Report\RankingSystemReport.toc)
+(E:\SHProject\SHProject\Report\RankingSystemReport.toc
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 4.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 4.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 4.
+)
 \tf@toc=\write3
  [1]
 (E:\SHProject\SHProject\Report\text\intro.tex)
-(E:\SHProject\SHProject\Report\text\backgroundAndTheory.tex
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 12.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 12.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 12.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 13.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 13.
+(E:\SHProject\SHProject\Report\text\backgroundAndTheory.tex)
+(E:\SHProject\SHProject\Report\text\method.tex
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 44.
+
+(E:\MikTex\tex\latex\base\omscmr.fd
+File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
-(E:\SHProject\SHProject\Report\text\method.tex)
-(E:\SHProject\SHProject\Report\text\results.tex [2]
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 44.
+ [2])
+(E:\SHProject\SHProject\Report\text\results.tex
 (./images/otf.eps
 )
-) (E:\SHProject\SHProject\Report\text\conclusions.tex) [3] [4]
+) (E:\SHProject\SHProject\Report\text\conclusions.tex [3]) [4]
 (E:\SHProject\SHProject\Report\RankingSystemReport.aux) ) 
 Here is how much of TeX's memory you used:
- 357 strings out of 493922
- 4721 string characters out of 3154524
- 54031 words of memory out of 3000000
- 3690 multiletter control sequences out of 15000+200000
- 9456 words of font info for 33 fonts, out of 3000000 for 9000
+ 374 strings out of 493922
+ 4978 string characters out of 3154524
+ 55031 words of memory out of 3000000
+ 3704 multiletter control sequences out of 15000+200000
+ 10061 words of font info for 35 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 26i,8n,21p,180b,178s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 23i,6n,21p,752b,178s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on RankingSystemReport.dvi (5 pages, 10380 bytes).
+Output written on RankingSystemReport.dvi (5 pages, 10324 bytes).

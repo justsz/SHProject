@@ -1,25 +1,59 @@
+%Description of
+% apparatus (code) and how it works
+% experimental method and procedures
+% calibration(?)
+
+%Scope
+% enough to allow th reader to udnerstand how the experiment was carried out
+% very important that for people attempting to reproduce your results
+
+%Useful tips
+% diagrams!
+% reference borrowed figures
+
+%This section should contain the details of the method employed. 
+%As in the previous sections standard techniques should not be written
+%out in detail. For example if you use an oscilloscope to take a
+%measurement, the theory of the CRO tube\footnote{Don't laugh, I have actually
+%seen this.} is {\bf not relevant}. In computational projects this
+%section should be used to explain the algorithms used and the layout of
+%the computational code. A copy of the acutal code must be
+%given in the appendices. Long detailed sections of theory, data tables
+%and details of computational code used in data analysis only should not
+%appear in this section, but should/may be included in the appendices.
+%
+%This section should emphasise the philosophy of the approach used
+%and detail novel techniques. However
+%please note: this section in {\bf not} a blow-by-blow account of what
+%you did throughout the project, and in particular it should {\bf not} 
+%contain large detailed sections about things you tried and found to be
+%completely wrong. Remember you are writing a technical report, and
+%not a diary. If however you find that a technique that was expected to
+%work failed, that is a valid result and should be included.
+%
+%Here logical structure is particularly important, and you may find that
+%to maintain good structure you may have to present the experiments
+%in a different order from the one in which you carried them out.
+
 \section{Method or Strategy}
+All simulations and analysis scripts are implemented in Python 2.7. The Numpy library is used for certain numerical tasks and Pyplot is used for plots and histograms. 
 
-This section should contain the details of the method employed. 
-As in the previous sections standard techniques should not be written
-out in detail. For example if you use an oscilloscope to take a
-measurement, the theory of the CRO tube\footnote{Don't laugh, I have actually
-seen this.} is {\bf not relevant}. In computational projects this
-section should be used to explain the algorithms used and the layout of
-the computational code. A copy of the acutal code must be
-given in the appendices. Long detailed sections of theory, data tables
-and details of computational code used in data analysis only should not
-appear in this section, but should/may be included in the appendices.
+\subsection{Simulation}
+All simulation code follows the following pattern.
+\begin{itemize}
+\item Create a collection of runners and assign initial scores.
+\item (optional) Assign each runner ability.
+\item Execute the update loop m times.
+	\begin{enumerate}
+	\item Select a group of runners from the whole list.
+	\item Generate run times.
+	\item (optional) Mark slowest 10\% to be excluded from calculations.
+	\item Calculate and apply score changes as per formula [???].
+	\end{enumerate}
+\end{itemize}
 
-This section should emphasise the philosophy of the approach used
-and detail novel techniques. However
-please note: this section in {\bf not} a blow-by-blow account of what
-you did throughout the project, and in particular it should {\bf not} 
-contain large detailed sections about things you tried and found to be
-completely wrong. Remember you are writing a technical report, and
-not a diary. If however you find that a technique that was expected to
-work failed, that is a valid result and should be included.
+Two types of score initialization were considered: all starting from the same score of a 1000 or assign scores based on a a Gaussian peaking at 1000 and with standard deviation of 200. In the case of uniform score assignment care needs to be taken in the code to handle the case when SP is zero (all runners have the same score) leading to division by zero.
+The code was progressively expanded to add more details about the runners. Initially there was no distinction between the competitors, later each runner was assigned an intrinsic ability and variability of that ability. The underlying ability distribution is modeled as each runner having a mean time. In reality, courses have different lengths, hence they take a different time to complete. The model used here corresponds to different subsets of all competitors running the same track in their own mean time. This should not be an issue because run times are essentially normalized when scores are calculated because only deviations from the mean time are relevant.
+The variability of a runner's performance is represented by a mean number of mistakes they make in a race. Every time they compete, a Poisson random variable with a mean of that runner's specific number of mistakes is drawn. This is multiplied by a mistake weight factor and added to their run time. [+- mistakes as well...]
 
-Here logical structure is particularly important, and you may find that
-to maintain good structure you may have to present the experiments
-in a different order from the one in which you carried them out.
+\subsection{Real Data Analysis}
