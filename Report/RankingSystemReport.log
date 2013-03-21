@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=latex 2013.3.4)  19 MAR 2013 20:29
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=latex 2013.3.4)  20 MAR 2013 15:23
 entering extended mode
 **RankingSystemReport.tex
 (E:\SHProject\SHProject\Report\RankingSystemReport.tex
@@ -84,10 +84,10 @@ File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 44.
  [2])
-(E:\SHProject\SHProject\Report\text\results.tex
+(E:\SHProject\SHProject\Report\text\results.tex [3]
 (./images/otf.eps
 )
-) (E:\SHProject\SHProject\Report\text\conclusions.tex [3]) [4]
+) (E:\SHProject\SHProject\Report\text\conclusions.tex) [4] [5]
 (E:\SHProject\SHProject\Report\RankingSystemReport.aux) ) 
 Here is how much of TeX's memory you used:
  374 strings out of 493922
@@ -98,4 +98,4 @@ Here is how much of TeX's memory you used:
  841 hyphenation exceptions out of 8191
  23i,6n,21p,752b,178s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on RankingSystemReport.dvi (5 pages, 10324 bytes).
+Output written on RankingSystemReport.dvi (6 pages, 12756 bytes).

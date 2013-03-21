@@ -36,14 +36,14 @@
 %in a different order from the one in which you carried them out.
 
 \section{Method or Strategy}
-All simulations and analysis scripts are implemented in Python 2.7. The Numpy library is used for certain numerical tasks and Pyplot is used for plots and histograms. 
+All simulations and analysis scripts are implemented in Python 2.7. The Numpy library is used for certain numerical tasks and Pyplot is used for plots and histograms. Most of the data analysis functions are implemented in a separate module. The main script then calls them in order according to user-defined control variables. (see SOME APPENDINX for implementation)
 
 \subsection{Simulation}
 All simulation code follows the following pattern.
 \begin{itemize}
 \item Create a collection of runners and assign initial scores.
 \item (optional) Assign each runner ability.
-\item Execute the update loop m times.
+\item Execute the following update loop m times:
 	\begin{enumerate}
 	\item Select a group of runners from the whole list.
 	\item Generate run times.
@@ -54,6 +54,27 @@ All simulation code follows the following pattern.
 
 Two types of score initialization were considered: all starting from the same score of a 1000 or assign scores based on a a Gaussian peaking at 1000 and with standard deviation of 200. In the case of uniform score assignment care needs to be taken in the code to handle the case when SP is zero (all runners have the same score) leading to division by zero.
 The code was progressively expanded to add more details about the runners. Initially there was no distinction between the competitors, later each runner was assigned an intrinsic ability and variability of that ability. The underlying ability distribution is modeled as each runner having a mean time. In reality, courses have different lengths, hence they take a different time to complete. The model used here corresponds to different subsets of all competitors running the same track in their own mean time. This should not be an issue because run times are essentially normalized when scores are calculated because only deviations from the mean time are relevant.
+In the case of no innate ability, run times are generated from a Gaussian curve with a random mean and standard deviation as one tenth of that mean. 
 The variability of a runner's performance is represented by a mean number of mistakes they make in a race. Every time they compete, a Poisson random variable with a mean of that runner's specific number of mistakes is drawn. This is multiplied by a mistake weight factor and added to their run time. [+- mistakes as well...]
 
-\subsection{Real Data Analysis}
+\subsection{Analysis of Real Data}
+A pre-processing step was performed to speed up subsequent data processing. Outside of the main program, incomplete entries were removed it would not be possible to gain information from them later.
+The main script follows the following pattern.
+\begin{itemize}
+\item Process the data file and produce a list of races and a list of all participants.
+\item Assign runners initial scores.
+\item For each race in the list of all recorded races:
+	\begin{enumerate}
+	\item (optional) Identify and deal with outliers.
+	\item Calculate and apply score changes as per formula [???].
+	\end{enumerate}
+\end{itemize}
+
+The file processing step parses the input CSV (comma separated values) file and assembles a list of races where each race is a list of a participant, run time pairs. In order to conform to the BOF rules, some data is discarded at this stage if the course is of type "yellow" or "white", if the participant is under the age of 16 or if the race has less than 10 participants. Also, run times that are 0 seconds long are discarded as they are obvious errors in recording. Still, other less-clear outliers remain.
+
+Initial scores, same as before, can either be some constant value for everyone or a normally distributed random variable.
+
+Possible outliers can be identified as either the slowest 10\% or times that are some number of standard deviations away from the mean of all times. They can then be either excluded from calculations of MT, ST, MP and SP or removed altogether giving them no points for the race.
+
+\subsection{Reruns}
+It is also possible to run all scores through the score assignment system multiple times. This would ideally lead to decreasing rank adjustments each rerun as the players' true score becomes better approximated each cycle.  

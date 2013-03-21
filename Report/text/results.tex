@@ -11,40 +11,46 @@
 
 %consistency of data, limitations, improvements
 
-\section{Results \& Discussion}
-
 This section should detail the obtained results in a clear,
-easy-to-follow manner. Remember long tables of numbers are just as boring to
-read as they are to type-in. Use graphs to present your results where
--ever practicable. When quoting results or measurements
-{\bf DO NOT FORGET ABOUT ERRORS}. Remember there are two basic types
-of errors, these being random and systematic, which you must consider.
-Remember also the difference between an error and a mistake, computer
-program bugs are mistakes.
-
- 
-Again be selective in what you include. Half a dozen
-tables that contain totally wrong data you collected while you forgot
-to switch on the power supply are {\bf not relevant} and will frequently
-mask the correct results. 
+%easy-to-follow manner. Remember long tables of numbers are just as boring to
+%read as they are to type-in. Use graphs to present your results where
+%-ever practicable. When quoting results or measurements
+%{\bf DO NOT FORGET ABOUT ERRORS}. Remember there are two basic types
+%of errors, these being random and systematic, which you must consider.
+%Remember also the difference between an error and a mistake, computer
+%program bugs are mistakes.
 %
-%                       Here is how to inserted a centered
-%                       postscript file, this one is actually
-%                       out of Maple, but it will work for other
-%                       figures out of Xfig, Idraw and Xgraph
+% 
+%Again be selective in what you include. Half a dozen
+%tables that contain totally wrong data you collected while you forgot
+%to switch on the power supply are {\bf not relevant} and will frequently
+%mask the correct results. 
+%%
+%%                       Here is how to inserted a centered
+%%                       postscript file, this one is actually
+%%                       out of Maple, but it will work for other
+%%                       figures out of Xfig, Idraw and Xgraph
+%%
+%\begin{figure}[htb]     %Insert a figure as soon as possible
+%        \begin{center}
+%                \leavevmode             % Warn Latex a figure is comming
+%                \epsfxsize=90mm         % Horizontal size YOU want
+%                                        % figure to be
+%                \epsffile{./images/otf.eps}
+%\end{center}
+%\caption{This is an inserted Postscript file}
+%\end{figure}
 %
-\begin{figure}[htb]     %Insert a figure as soon as possible
-        \begin{center}
-                \leavevmode             % Warn Latex a figure is comming
-                \epsfxsize=90mm         % Horizontal size YOU want
-                                        % figure to be
-                \epsffile{./images/otf.eps}
-\end{center}
-\caption{This is an inserted Postscript file}
-\end{figure}
+%This section must contain a discussion of the results. This should
+%include a discussion of the experimental and/or numerical errors, and a
+%comparison with the predictions of the background and theory underlying
+%the techniques used. This section should highlight particular strengths
+%and/or weaknesses of the methods used.
 
-This section must contain a discussion of the results. This should
-include a discussion of the experimental and/or numerical errors, and a
-comparison with the predictions of the background and theory underlying
-the techniques used. This section should highlight particular strengths
-and/or weaknesses of the methods used.
+\section{Results \& Discussion}
+\subsection{Simulation results}
+The first simulated case is that of there being no difference between the runners. The general trend observed here was that the participants' rank distribution is described by a Gaussian curve with the mean matching the one of the initial rank distribution's mean. [PROBABLY INSERT SMTH ABOUT CLT] As more races were executed, the standard deviation becomes smaller. This can be explained by noting that the runners are indistinguishable, hence it is expected that they should have essentially the same rank. [REALLY? what about the real data case? or is all of this just a consequence of the CLT?]
+Another observation was made that applying the 90\% cutoff rule produces a drift of the mean in the negative direction. The rule is intended to eliminate outliers, however in this case there are effectively no outlying run times generated. Thus, removing the longest 10\% of run times for calculations of MT, ST, MP and SP while still giving points creates a bias towards the lower scores [???wording]. The mean run time is lowered which leads to the cutoff players receiving an inappropriately lower score which in turn leads to the whole rank distribution to drift to the left over time. 
+[piiictuuures!]
+Next, runners with differing abilities were put through the system. It was found that, given a small enough mistake making frequency, the ranking scheme correctly identifies the runners' ability. This can be seen ing [FIGURE]. 
+Increasing the propensity of runners to make mistakes, i.e. increasing noise, makes the runners all look like the same. However, in the simulated data there is the advantage that everything is known about the runners. If the mean number of mistakes is  multiplied by mistake weight and added to the runners' mean times, the previous graph is recovered. 

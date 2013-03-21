@@ -4,7 +4,7 @@ import numpy
 
 N = 1000 #total number of people competing
 n = 100 #max number of participants in a single race
-races = 5000
+races = 10000
 
 people = {}
 initialRanks = []
@@ -15,8 +15,8 @@ rand2.jumpahead(999)
 
 #initialize scores
 for i in range(1, N+1):
-    rank = rand1.randint(1000, 1000)
-    #rank = rand1.gauss(1000, 200)
+    #rank = rand1.randint(1000, 1000)
+    rank = rand1.gauss(2000, 200)
     people[i] = [rank, 0] #ID, initial rank, number of races participated in
     initialRanks.append(rank)
     
@@ -43,7 +43,7 @@ for i in range(1, races):
     results = sorted(results, key=lambda x: x[2]) #rank by run times: quicke -> slow
     
 
-    top90 = int(noOfParticipants*0.9)
+    top90 = int(noOfParticipants*1.0)
     #calculate mean rank and time and their standard deviations
     MP = 0.0
     MT = 0.0
@@ -103,8 +103,8 @@ print "sdDiv", sdDiv
 
 #plot graphs
 import matplotlib.pyplot as plt
-plt.hist(initialRanks, bins=50, normed=False, histtype='stepfilled', color='b', label='initial')
-plt.hist(finalRanks, bins=50, normed=False, histtype='stepfilled', color='r', label='final', alpha = 0.5)                        
+#plt.hist(initialRanks, bins=50, normed=False, histtype='stepfilled', color='b', label='initial')
+plt.hist(finalRanks, bins=100, normed=False, histtype='stepfilled', color='r', label='final', alpha = 0.5)                        
 plt.title("Rank Histogram")
 plt.xlabel("Rank")
 plt.ylabel("Frequency")
