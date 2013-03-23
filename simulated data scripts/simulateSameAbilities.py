@@ -4,7 +4,7 @@ import numpy
 
 N = 1000 #total number of people competing
 n = 100 #max number of participants in a single race
-races = 10000
+races = 30000
 
 people = {}
 initialRanks = []
@@ -12,6 +12,9 @@ rand1 = random.Random(456)
 
 rand2 = random.Random(456)
 rand2.jumpahead(999)
+
+means = []
+stds = []
 
 #initialize scores
 for i in range(1, N+1):
@@ -24,6 +27,8 @@ for i in range(1, N+1):
 print "beginning calculations"
 for i in range(1, races):
     if i % 1000 == 0:
+        means.append(numpy.mean([v[0] for k,v in people.iteritems()]))
+        stds.append(numpy.std([v[0] for k,v in people.iteritems()]))
         print "race", i
 
     #choose participants for

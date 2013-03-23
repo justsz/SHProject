@@ -1,0 +1,52 @@
+\begin{thebibliography}{1}
+
+\bibitem{elo}
+A.~E. Elo.
+\newblock {\em The rating of chessplayers, past and present}.
+\newblock Arco Publishing, New York, 1978.
+
+\bibitem{football}
+Lars~Magnus Hvattum and Halvard Arntzen.
+\newblock Using elo ratings for match result prediction in association
+  football.
+\newblock {\em International Journal of Forecasting}, 26(3):460 -- 470, 2010.
+\newblock Sports Forecasting.
+
+\bibitem{glicko}
+Mark~E Glickman.
+\newblock The glicko system.
+\newblock {\em Boston University}, 1998.
+
+\bibitem{trueskill}
+Tom~Minka Ralf~Herbrich and Thore Graepel.
+\newblock Trueskill™: A bayesian skill rating system.
+\newblock {\em Advances in Neural Information Processing Systems}, 19:569,
+  2007.
+
+\bibitem{trueskillMicrosoft}
+Trueskill™ ranking system: Details.
+\newblock http://research.microsoft.com/en-us/projects/trueskill/details.aspx.
+\newblock Accessed: 23/03/2013.
+
+\bibitem{trueskillSimple}
+Computing your skill.
+\newblock http://www.moserware.com/2010/03/computing-your-skill.html.
+\newblock Accessed: 23/03/2013.
+
+\bibitem{allegskill}
+Allegskill.
+\newblock http://www.freeallegiance.org/FAW/index.php/AllegSkill.
+\newblock Accessed: 23/03/2013.
+
+\bibitem{bof}
+The ranking system.
+\newblock
+  http://www.britishorienteering.org.uk/images/uploaded/downloads/events\_appendix\_k.pdf.
+\newblock Accessed: 23/03/2013.
+
+\bibitem{probability}
+Meyer Dwass.
+\newblock {\em Probability: Theory and Applications}.
+\newblock W. A. Benjamin, Inc., New York, 1970.
+
+\end{thebibliography}

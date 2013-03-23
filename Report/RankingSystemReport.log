@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=latex 2013.3.4)  20 MAR 2013 15:23
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=latex 2013.3.4)  23 MAR 2013 22:32
 entering extended mode
 **RankingSystemReport.tex
 (E:\SHProject\SHProject\Report\RankingSystemReport.tex
@@ -73,9 +73,9 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 )
 \tf@toc=\write3
  [1]
-(E:\SHProject\SHProject\Report\text\intro.tex)
+(E:\SHProject\SHProject\Report\text\intro.tex [2])
 (E:\SHProject\SHProject\Report\text\backgroundAndTheory.tex)
-(E:\SHProject\SHProject\Report\text\method.tex
+(E:\SHProject\SHProject\Report\text\method.tex [3]
 LaTeX Font Info:    Try loading font information for OMS+cmr on input line 44.
 
 (E:\MikTex\tex\latex\base\omscmr.fd
@@ -83,19 +83,57 @@ File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 44.
- [2])
-(E:\SHProject\SHProject\Report\text\results.tex [3]
-(./images/otf.eps
+ [4])
+(E:\SHProject\SHProject\Report\text\results.tex
+(./images/test.ps
 )
-) (E:\SHProject\SHProject\Report\text\conclusions.tex) [4] [5]
-(E:\SHProject\SHProject\Report\RankingSystemReport.aux) ) 
+) (E:\SHProject\SHProject\Report\text\conclusions.tex
+Underfull \hbox (badness 10000) in paragraph at lines 52--5
+
+ []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[5]) [6] (E:\SHProject\SHProject\Report\RankingSystemReport.bbl
+Missing character: There is no â in font cmr12!
+Missing character: There is no „ in font cmr12!
+Missing character: There is no ¢ in font cmr12!
+Missing character: There is no â in font cmr12!
+Missing character: There is no „ in font cmr12!
+Missing character: There is no ¢ in font cmr12!
+
+Underfull \hbox (badness 10000) in paragraph at lines 27--30
+[]\OT1/cmr/m/n/12 Trueskill rank-ing sys-tem: De-tails.  http://research.micros
+oft.com/en-
+ []
+
+
+Underfull \hbox (badness 5050) in paragraph at lines 32--35
+[]\OT1/cmr/m/n/12 Computing your skill.  http://www.moserware.com/2010/03/compu
+ting-your-
+ []
+
+
+Underfull \hbox (badness 1028) in paragraph at lines 37--40
+[]\OT1/cmr/m/n/12 Allegskill.  http://www.freeallegiance.org/FAW/index.php/Alle
+gSkill.  Ac-cessed:
+ []
+
+
+Overfull \hbox (140.58362pt too wide) in paragraph at lines 42--46
+[]\OT1/cmr/m/n/12 The rank-ing sys-tem.  http://www.britishorienteering.org.uk/
+images/uploaded/downloads/events[]appendix[]k.pdf.
+ []
+
+) [7] (E:\SHProject\SHProject\Report\RankingSystemReport.aux) ) 
 Here is how much of TeX's memory you used:
- 374 strings out of 493922
- 4978 string characters out of 3154524
- 55031 words of memory out of 3000000
- 3704 multiletter control sequences out of 15000+200000
+ 388 strings out of 493922
+ 5211 string characters out of 3154524
+ 56031 words of memory out of 3000000
+ 3714 multiletter control sequences out of 15000+200000
  10061 words of font info for 35 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 23i,6n,21p,752b,178s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 23i,6n,21p,1227b,176s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on RankingSystemReport.dvi (6 pages, 12756 bytes).
+Output written on RankingSystemReport.dvi (8 pages, 22620 bytes).

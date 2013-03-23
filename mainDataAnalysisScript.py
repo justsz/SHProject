@@ -12,7 +12,7 @@ PATTERN = '(\d+),(.*),(\d+),(\d+):(\d\d):(\d\d),(.*),?(\d*)'
 
 
 keepHistory = True
-keepGeneratedScore = False #note: if True, every racer has at least 1 "real race"
+keepGeneratedScore = True #note: if True, every racer has at least 1 "real race"
                         #might need to separate the cases...
 
 
@@ -48,6 +48,7 @@ print "number of people registered: ", len(people)
 
 means = []
 stds = []
+sps = []
 
 print "processing race results..."
 raceCounter = 0
@@ -63,6 +64,7 @@ for run in range(0, totalRuns):
                 
                 results = hFunc.getResults(race, people)
                 meansAndStds = hFunc.cropResultsAndCalcMeansAndStds(results, cropType, cropLimit, givePointsToCropped, minSP)
+                sps.append(meansAndStds[1])
                 hFunc.updateRunnerScores(results, meansAndStds, people, keepHistory)
                                 
         scoreMeanAndStd = hFunc.getMeanAndStdOfScores(people, keepHistory, minRaceCount, dropIntermediateScores, run+1)

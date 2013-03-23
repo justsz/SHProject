@@ -9,14 +9,40 @@ races = 10000
 
 MT = 1000
 ST = MT / 10
-mistakeWeight = MT / 100
+mistakeWeight = 0# MT / 100
+
+means = []
+stds = []
+spS = []
+
+people = {}
+initialRanks = []
+abilities = []
+mistakesList = []
+initRand = random.Random(819239)
+    #initialize scores
+for i in range(1, N+1):
+    rank = 1000
+##        rank = rand1.gauss(1000, 200)
+    ###Higher "ability" actually means slower runner
+    ability = initRand.gauss(MT, ST)
+##        mistakes = rand1.randint(1,10)
+    mistakes = 1
+##        mistakes = int((MT - ability) / ST)
+##        if mistakes < 0:
+##            mistakes = 0
+    mistakesList.append(mistakes)
+    people[i] = [rank, 0, ability, mistakes] #ID, initial rank, number of races participated in
+    initialRanks.append(rank)
+    abilities.append(ability)
+
+##    print abilities[1:20]
+##    print mistakesList[1:20]
 
 for repeat in range (1, 2):
 ##    races += 0
-    people = {}
-    initialRanks = []
-    abilities = []
-    mistakesList = []
+
+
     rand1 = random.Random(456)
 
     rand2 = random.Random(456)
@@ -24,29 +50,15 @@ for repeat in range (1, 2):
 
     numpy.random.seed(678900)
 
-    #initialize scores
-    for i in range(1, N+1):
-##        rank = rand1.randint(1000, 1000)
-        rank = rand1.gauss(1000, 200)
-        ###Higher "ability" actually means slower runner
-        ability = rand1.gauss(MT, ST)
-##        mistakes = rand1.randint(1,10)
-        mistakes = 1
-##        mistakes = int((MT - ability) / ST)
-##        if mistakes < 0:
-##            mistakes = 0
-        mistakesList.append(mistakes)
-        people[i] = [rank, 0, ability, mistakes] #ID, initial rank, number of races participated in
-        initialRanks.append(rank)
-        abilities.append(ability)
+    
 
-##    print abilities[1:20]
-##    print mistakesList[1:20]
 
 
     print "beginning calculations"
     for i in range(1, races):
         if i % 1000 == 0:
+            means.append(numpy.mean([v[0] for k,v in people.iteritems()]))
+            stds.append(numpy.std([v[0] for k,v in people.iteritems()]))
             print "race", i
 
         #choose participants for race
@@ -92,14 +104,17 @@ for repeat in range (1, 2):
         #needed if all start from the same score
         if SP == 0:
             SP = 200
+        #if SP < 50:
+        #    SP = 50
 
+        spS.append(SP)
         #calculate scores and update mean scores of runners
         for res in results:
             ID = res[0]
             RP = MP + SP * (MT - res[2]) / ST
             
-            if RP < 0:
-                RP = 0
+            #if RP < 0:
+            #    RP = 0
 
             currRaceCount = people[ID][1]
             people[ID][0] = (currRaceCount * people[ID][0] + RP) / (currRaceCount + 1)
@@ -136,7 +151,7 @@ for repeat in range (1, 2):
 
     #plot rank distribution
 
-    #plt.hist(abilities, bins=100, normed=False, histtype='stepfilled', color='b', label='abilities')
+    plt.hist(abilities, bins=100, normed=False, histtype='stepfilled', color='b', label='abilities')
     plt.hist(finalRanks, bins=50, normed=False, histtype='stepfilled', color='r', label='finalRanks', alpha = 0.5)
     plt.axvline(x=mean, color='black')
     plt.title("Rank Histogram")

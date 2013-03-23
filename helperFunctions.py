@@ -182,8 +182,8 @@ def cropResultsAndCalcMeansAndStds (results, cropType, cropLimit, givePointsToCr
 
 
 
-    #if SP == 0:
-    #    SP = 200
+    if SP == 0:
+        SP = 200
     if SP < minSP:
         SP = minSP
         
