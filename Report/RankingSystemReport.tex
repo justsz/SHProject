@@ -2,7 +2,14 @@
 %                       This is a LaTeX 2e version of the
 %                       laboratory project template file.
 \documentclass[a4paper,12pt]{article}
-\usepackage{fullpage,epsf}
+\usepackage{fullpage}
+%\usepackage{epsf}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{caption}
+%\usepackage{subfigure}
+\usepackage{subcaption}
+\usepackage{placeins}
 
 
 %
@@ -12,16 +19,15 @@
 %                       project length in weeks and submission date
 %
 \begin{document}
+
 \pagestyle{empty}                       % No numbers of title page                      
-\epsfxsize=40mm                         % Size of crest
 \begin{minipage}[b]{110mm}
         {\Huge\bf School of Physics\\ and Astronomy
         \vspace*{17mm}}
 \end{minipage}
 \hfill
 \begin{minipage}[t]{40mm}               
-        \makebox[40mm]{
-        \epsffile{./images/crest.eps}}
+        \includegraphics[width=40mm]{crest.pdf}
 \end{minipage}
 \par\noindent                                           % Centre Title, and name
 \vspace*{2cm}
@@ -64,34 +70,34 @@ Signature:\hspace*{8cm}Date:
 \tableofcontents                                % Makes Table of Contents
 \newpage
 
-\input{./text/intro.tex} 
+\input{./text/intro.tex}
+%\newpage 
+\FloatBarrier
 \input{./text/backgroundAndTheory.tex}
+%\newpage
+\FloatBarrier
 \input{./text/method.tex}
+%\newpage
+\FloatBarrier
 \input{./text/results.tex}
+%\input{./text/simulations.tex}
+%\input{./text/realData.tex}
+%\newpage
+\FloatBarrier
 \input{./text/conclusions.tex}
-
- 
+\FloatBarrier
 
 \newpage
 \addcontentsline{toc}{section}{References}
 \bibliographystyle{unsrt}
 \bibliography{bibliography}
-      
+
+\newpage      
 \appendix
 \section{Appendices}
 
-Material that is useful background to the report, but is not essential,
-or whose inclusion within the report  would detract from its
-structure and readablity, should be included in appendices. Typical
-material could be diagrams of electronic circuits built, specialist
-data tables used to analyse results, details of computer programs
-written for analysis and display of results, photographic plates,
-and, for computational projects, a copy of all written code.
+An interesting aside. While plotting the rank and score standard deviation of all individuals mostly produces a big cluster of points in one area, there is still an overall trend. Higher ranked people tend to have more consistent runs.
 
-Again be selective. The appendix is {\bf not} an excuse for you to add every
-last detail and piece of data, but should be used to assist the reader
-of the report by supplying additional material. Not all reports require
-appendices and if the report is complete without this additional
-material leave it out.
+\includegraphics[width=\textwidth]{./images/meanVsstd.pdf}
 
 \end{document}

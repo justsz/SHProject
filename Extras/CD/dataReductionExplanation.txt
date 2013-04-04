@@ -1,0 +1,10 @@
+removed all fields except:
+-res_eday
+-res_course_num
+-res_bof_num
+-res_time
+
+removed any entry that didn't have all 4 of these fields filled in
+removed negative bof numers
+
+some very short or very long times remain

@@ -2,12 +2,5 @@
 %summary of main results
 %significance, relevance, confidence (of/in results)
 %future work
-
 \section{Conclusion}
-This section should summarise the results obtained, detail
-conclusions reached, suggest future work, and changes that you would make if you repeated the
-experiment. This section should in general be short, 100 to 150 words
-being typical for most projects.
-\par\noindent
-If you have opted to have multiple {\bf Theory, Method, Results}
-sections, draw all the results together in a {\bf single} conclusion.
+Analysis of the BOF ranking system has revealed important features. It recovers the underlying ability distribution correctly for simulated data and produces a plausible rank distribution for real data. Removing outliers while still granting them points for the race causes the mean of ranks to drift significantly. Different types of rank initialization have some initial effect, but rerunning race data can reduce this. However, reruns also appear to cause the whole distribution to become more narrow, this remains unresolved and impedes understanding the convergence of the system. Future work could include a deeper look into the shrinking problem and how exactly the Central Limit Theorem can be applied to this complicated system. It would also be interesting to compare how different ranking schemes like TrueSkill order the runners.

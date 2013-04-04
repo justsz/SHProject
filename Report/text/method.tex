@@ -2,76 +2,57 @@
 % apparatus (code) and how it works
 % experimental method and procedures
 % calibration(?)
-
 %Scope
 % enough to allow th reader to udnerstand how the experiment was carried out
 % very important that for people attempting to reproduce your results
-
 %Useful tips
 % diagrams!
 % reference borrowed figures
-
-%This section should contain the details of the method employed. 
-%As in the previous sections standard techniques should not be written
-%out in detail. For example if you use an oscilloscope to take a
-%measurement, the theory of the CRO tube\footnote{Don't laugh, I have actually
-%seen this.} is {\bf not relevant}. In computational projects this
-%section should be used to explain the algorithms used and the layout of
-%the computational code. A copy of the acutal code must be
-%given in the appendices. Long detailed sections of theory, data tables
-%and details of computational code used in data analysis only should not
-%appear in this section, but should/may be included in the appendices.
-%
-%This section should emphasise the philosophy of the approach used
-%and detail novel techniques. However
-%please note: this section in {\bf not} a blow-by-blow account of what
-%you did throughout the project, and in particular it should {\bf not} 
-%contain large detailed sections about things you tried and found to be
-%completely wrong. Remember you are writing a technical report, and
-%not a diary. If however you find that a technique that was expected to
-%work failed, that is a valid result and should be included.
-%
-%Here logical structure is particularly important, and you may find that
-%to maintain good structure you may have to present the experiments
-%in a different order from the one in which you carried them out.
-
-\section{Method or Strategy}
-All simulations and analysis scripts are implemented in Python 2.7. The Numpy library is used for certain numerical tasks and Pyplot is used for plots and histograms. Most of the data analysis functions are implemented in a separate module. The main script then calls them in order according to user-defined control variables. (see SOME APPENDINX for implementation)
-
+\section{Method}
+\label{sec:method}
+The simulations and analysis scripts are implemented in Python 2.7. The Numpy library is used for certain numerical and statistical tasks and Pyplot is used for plots and histograms. Most of the data analysis functions are implemented in a separate module. The main script then calls them in sequence according to user-defined control variables. Details of simulation and analysis code follow.\\
 \subsection{Simulation}
 All simulation code follows the following pattern.
 \begin{itemize}
 \item Create a collection of runners and assign initial scores.
-\item (optional) Assign each runner ability.
-\item Execute the following update loop m times:
+\item (optional) Assign each runner a mean run time which represents their innate ability.
+\item Execute the following update loop \emph{m} times:
 	\begin{enumerate}
 	\item Select a group of runners from the whole list.
 	\item Generate run times.
 	\item (optional) Mark slowest 10\% to be excluded from calculations.
-	\item Calculate and apply score changes as per formula [???].
+	\item Calculate and apply score changes according to Equation \ref{eq:mainEq}.
 	\end{enumerate}
 \end{itemize}
-
-Two types of score initialization were considered: all starting from the same score of a 1000 or assign scores based on a a Gaussian peaking at 1000 and with standard deviation of 200. In the case of uniform score assignment care needs to be taken in the code to handle the case when SP is zero (all runners have the same score) leading to division by zero.\\
-The code was progressively expanded to add more details about the runners. Initially there was no distinction between the competitors, later each runner was assigned an intrinsic ability and variability of that ability. The underlying ability distribution is modeled as each runner having a mean time. In reality, courses have different lengths, hence they take a different time to complete. The model used here corresponds to different subsets of all competitors running the same track in their own mean time. This should not be an issue because run times are essentially normalized when scores are calculated because only deviations from the mean time are relevant.
-In the case of no innate ability, run times are generated from a Gaussian curve with a random mean and standard deviation as one tenth of that mean.\\ 
-The variability of a runner's performance is represented by a mean number of mistakes they make in a race. Every time they compete, a Poisson random variable with a mean of that runner's specific number of mistakes is drawn. This is multiplied by a mistake weight factor and added to their run time. [+- mistakes as well...]
-
-\subsection{Analysis of Real Data}
-A pre-processing step was performed to speed up subsequent data processing. Outside of the main program, incomplete entries were removed it would not be possible to gain information from them later.\\
-The main script follows the following pattern.
+%
+Two types of score initialization were considered for most simulations: all starting from the same score of a 1000 or assigning scores based on a a Gaussian with mean 1000 and standard deviation 200. In the case of uniform score assignment care needs to be taken in the code to handle the case when \emph{SP} is zero (all runners have the same score) leading to division by zero. In this project the default value $SP=200$ was used if all runners entered with the same score.\\
+In order for the system to have only limited information about the whole set of runners, thus closer resembling real racing, random subsets of 10 to 100 people were chosen to participate in each race. The total number of participants was chosen to be 10000. The number of races \emph{m} varied between experiments and is specified together with any presented results. With these settings each person runs in 0.0055\emph{m} events on average.\\ 
+The code was progressively expanded to add more details about individual runners. Initially there was no distinction between the competitors and run times for each event were generated from a Gaussian curve with a random mean and standard deviation as one tenth of that mean. In later experiments each runner was assigned an intrinsic ability and variability of that ability. Runners were given a mean race time drawn from a normal distribution with $\mu=1000$ and $\sigma=100$. Uncertainty was represented by adding a Gaussian random variable to the mean time with $\mu=0$ and $\sigma=10*v$ where \emph{v} is a variability measure. $v=10$ was used for results presented in this report.\\
+In the case of intrinsic ability, it might cause concern that the underlying ability distribution is modeled as each runner having a mean time drawn from a single distribution. In reality, courses have different lengths, hence they take a different time to complete on average. This should not be an issue, though, because run times are essentially normalized when scores are calculated because only deviations from the mean time are relevant.\\ 
+In step 3 of the race generation loop, a cutoff rule was applied for some experiments. With the rule active 10\% of the longest run times were excluded from calculations of \emph{MT}, \emph{ST}, \emph{MP} and \emph{ST} (from Eq \ref{eq:mainEq}) but the runners were still given points, in accordance with the BOF instructions\cite{bof}.\\ 
+%
+\subsection{Data Analysis}
+The main analysis script follows the following pattern.
 \begin{itemize}
 \item Process the data file and produce a list of races and a list of all participants.
 \item Assign runners initial scores.
 \item For each race in the list of all recorded races:
 	\begin{enumerate}
-	\item (optional) Identify and deal with outliers.
-	\item Calculate and apply score changes as per formula [???].
+	\item (optional) Mark slowest 10\% to be excluded from calculations.
+	\item Calculate and apply score changes according to Equation \ref{eq:mainEq}.
 	\end{enumerate}
 \end{itemize}
-The file processing step parses the input CSV (comma separated values) file and assembles a list of races where each race is a list of a participant, run time pairs. In order to conform to the BOF rules, some data is discarded at this stage if the course is of type "yellow" or "white", if the participant is under the age of 16 or if the race has less than 10 participants. Also, run times that are 0 seconds long are discarded as they are obvious errors in recording. Still, other less-clear outliers remain.\\
-Initial scores, same as before, can either be some constant value for everyone or a normally distributed random variable.\\
-Possible outliers can be identified as either the slowest 10\% or times that are some number of standard deviations away from the mean of all times. They can then be either excluded from calculations of MT, ST, MP and SP or removed altogether giving them no points for the race.
-
-\subsection{Reruns}
-It is also possible to run all scores through the score assignment system multiple times. This would ideally lead to decreasing rank adjustments each rerun as the players' true score becomes better approximated each cycle.  
+The data was provided by BOF as a CSV (comma separated values) file that contained information about every race recorded. A pre-processing step was performed to speed up subsequent data processing. Outside of the main program, obviously erroneous entries were removed. These included entries with missing fields (recording error) or negative values. The next processing step parses the reduced file and assembles a list of races where each race is a list of participant, run time pairs. If the course is of type "yellow" or "white", if the participant is under the age of 16 or if the race has less than 10 participants the data is discarded at this stage, in order to conform to the BOF rules. Also, run times that are 0 seconds long are discarded as they are obviously wrong. Despite these steps other less-clear outliers likely remain.\\
+The script allows to specify a minimum number of races that are needed to be taken into account when producing rank distributions and calculating various statistics about the data. Initial scores, same as before, can either be some constant value for everyone or a normally distributed random variable. The cutoff rule is the same as described in the section above.\\
+%
+\subsection{Reruns and Rebasing}
+It is possible to put all run times through the score assignment system multiple times. This would ideally lead to the system reaching a steady state where any adjustments to the rank distribution are diminishingly small. Whenever reruns were applied, previously earned scores were dropped and their mean kept as the new initial score.\\ 
+Scores can also be rebased to a different mean and standard distribution while still retaining the relations between all data points. The following procedure was used.
+\begin{enumerate}
+\item Calculate the current mean of scores $\mu c$.
+\item Calculate the current standard deviation of scores $\sigma c$.
+\item Rebase scores to new mean $\mu n$ and new standard deviation $\sigma n$ by applying to each score the transformation:
+\begin{equation}
+	score \rightarrow \frac{(score - \mu c) * \sigma n}{\sigma c} + \mu n
+\end{equation}
+\end{enumerate}

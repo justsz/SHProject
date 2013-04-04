@@ -1,11 +1,12 @@
 \contentsline {section}{\numberline {1}Introduction}{2}
 \contentsline {section}{\numberline {2}Background or Theory}{2}
-\contentsline {section}{\numberline {3}Method or Strategy}{3}
+\contentsline {section}{\numberline {3}Method}{4}
 \contentsline {subsection}{\numberline {3.1}Simulation}{4}
-\contentsline {subsection}{\numberline {3.2}Analysis of Real Data}{4}
-\contentsline {subsection}{\numberline {3.3}Reruns}{5}
-\contentsline {section}{\numberline {4}Results \& Discussion}{5}
-\contentsline {subsection}{\numberline {4.1}Simulation results}{5}
-\contentsline {section}{\numberline {5}Conclusion}{6}
-\contentsline {section}{References}{7}
-\contentsline {section}{\numberline {A}Appendices}{7}
+\contentsline {subsection}{\numberline {3.2}Data Analysis}{5}
+\contentsline {subsection}{\numberline {3.3}Reruns and Rebasing}{6}
+\contentsline {section}{\numberline {4}Results and Discussion}{6}
+\contentsline {subsection}{\numberline {4.1}Simulation results}{6}
+\contentsline {subsection}{\numberline {4.2}Data analysis results}{10}
+\contentsline {section}{\numberline {5}Conclusion}{12}
+\contentsline {section}{References}{13}
+\contentsline {section}{\numberline {A}Appendices}{14}
